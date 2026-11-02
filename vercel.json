@@ -15,6 +15,14 @@
       "dest": "app.py"
     },
     {
+      "src": "/chat/?",
+      "dest": "app.py"
+    },
+    {
+      "src": "/health/?",
+      "dest": "app.py"
+    },
+    {
       "src": "/(.*)",
       "dest": "app.py"
     }

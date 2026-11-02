@@ -1,6 +1,6 @@
 fastapi
 uvicorn
-openai
-pinecone-client
 python-dotenv
+openai
+pinecone
 pydantic
