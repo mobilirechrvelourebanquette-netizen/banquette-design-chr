@@ -43,9 +43,10 @@ async def route_message(text: str) -> RoutedMessage:
 def build_reply(routed: RoutedMessage) -> str:
     """Return a short acknowledgement in the detected language."""
     if routed.language == "bn-BD":
+        contact_word = "\u09af\u09cb\u0997\u09be\u09af\u09cb\u0997"
         replies = {
             "furniture": (
-                "বংকেট ডিজাইন সি এইচ আর-এ যোগায��গ করার জন্য ধন্যবাদ। "
+                "���ংকেট ডিজাইন সি এইচ আর-এ " + contact_word + " করার জন্য ধন্যবাদ। "
                 "আপনার বাণিজ্যিক আসবাবের প্রয়োজন, মাপ ও অবস্থান জানালে আমাদের দল সহায়তা করবে।"
             ),
             "3d_design": (
