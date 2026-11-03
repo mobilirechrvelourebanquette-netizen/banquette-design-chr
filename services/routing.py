@@ -1,4 +1,3 @@
-"""Shared French and Bengali inquiry detection and response routing."""
 from dataclasses import dataclass
 
 
@@ -16,6 +15,7 @@ def detect_language(text: str) -> str:
 
 def classify_inquiry(text: str) -> str:
     normalized = text.casefold()
+
     bengali_terms = {
         "furniture": ("আসবাব", "ফার্নিচার", "চেয়ার", "টেবিল", "ডিজাইন"),
         "3d_design": ("3d", "থ্রিডি", "মডেল"),
@@ -28,6 +28,7 @@ def classify_inquiry(text: str) -> str:
         "quote": ("prix", "devis", "tarif", "budget"),
         "callback": ("rappelez-moi", "appelez-moi", "rappel", "être appelé"),
     }
+
     terms = bengali_terms if detect_language(text) == "bn-BD" else french_terms
     for intent, keywords in terms.items():
         if any(keyword in normalized for keyword in keywords):
@@ -36,35 +37,17 @@ def classify_inquiry(text: str) -> str:
 
 
 async def route_message(text: str) -> RoutedMessage:
-    """Async seam for shared routing used by Meta messages and Retell transcripts."""
     return RoutedMessage(language=detect_language(text), intent=classify_inquiry(text))
 
 
 def build_reply(routed: RoutedMessage) -> str:
-    """Return a short acknowledgement in the detected language."""
     if routed.language == "bn-BD":
-        contact_word = "\u09af\u09cb\u0997\u09be\u09af\u09cb\u0997"
         replies = {
-            "furniture": (
-                "���ংকেট ডিজাইন সি এইচ আর-এ " + contact_word + " করার জন্য ধন্যবাদ। "
-                "আপনার বাণিজ্যিক আসবাবের প্রয়োজন, মাপ ও অবস্থান জানালে আমাদের দল সহায়তা করবে।"
-            ),
-            "3d_design": (
-                "আপনার 3D ডিজাইন প্রকল্প সম্পর্কে জানানোর জন্য ধন্যবাদ। "
-                "প্রয়োজনীয় মাপ, রেফারেন্স এবং সময়সীমা পাঠালে আমাদের দল পরবর্তী ধাপ জানাবে।"
-            ),
-            "quote": (
-                "কোটেশনের জন্য ধন্যবাদ। অনুগ্রহ করে পণ্যের ধরন, পরিমাণ, মাপ এবং "
-                "ডেলিভারির শহর জানান।"
-            ),
-            "callback": (
-                "আপনি ফোনে কথা বলতে চান বুঝেছি। অনুগ্রহ করে আপনার সুবিধাজনক সময় জানান; "
-                "কলের আগে আমাদের দল সম্মতি নিশ্চিত করবে।"
-            ),
-            "general": (
-                "বংকেট ডিজাইন সি এইচ আর-এ যোগাযোগ করার জন্য ধন্যবাদ। "
-                "আপনি আসবাব, 3D ডিজাইন, নাকি কোটেশন সম্পর্কে জানতে চান?"
-            ),
+            "furniture": "বংকেট ডিজাইন সি এইচ আর-এ যোগাযোগ করার জন্য ধন্যবাদ। আপনার বাণিজ্যিক আসবাবের প্রয়োজন, মাপ ও অবস্থান জানালে আমাদের দল সহায়তা করবে।",
+            "3d_design": "আপনার 3D ডিজাইন প্রকল্প সম্পর্কে জানানোর জন্য ধন্যবাদ। প্রয়োজনীয় মাপ, রেফারেন্স এবং সময়সীমা পাঠালে আমাদের দল পরবর্তী ধাপ জানাবে।",
+            "quote": "কোটেশনের জন্য ধন্যবাদ। অনুগ্রহ করে পণ্যের ধরন, পরিমাণ, মাপ এবং ডেলিভারির শহর জানান।",
+            "callback": "আপনি ফোনে কথা বলতে চান বুঝেছি। অনুগ্রহ করে আপনার সুবিধাজনক সময় জানান; কলের আগে আমাদের দল সম্মতি নিশ্চিত করবে।",
+            "general": "বংকেট ডিজাইন সি এইচ আর-এ যোগাযোগ করার জন্য ধন্যবাদ। আপনি আসবাব, 3D ডিজাইন, নাকি কোটেশন সম্পর্কে জানতে চান?",
         }
     else:
         replies = {

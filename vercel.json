@@ -15,6 +15,10 @@
       "dest": "app.py"
     },
     {
+      "src": "/webhook/retell/?",
+      "dest": "app.py"
+    },
+    {
       "src": "/chat/?",
       "dest": "app.py"
     },
