@@ -2,7 +2,6 @@ fastapi
 uvicorn
 python-dotenv
 openai
-pinecone
 pydantic
 httpx
 redis>=5,<7

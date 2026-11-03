@@ -10,25 +10,12 @@
     }
   ],
   "routes": [
-    {
-      "src": "/webhook/?",
-      "dest": "app.py"
-    },
-    {
-      "src": "/webhook/retell/?",
-      "dest": "app.py"
-    },
-    {
-      "src": "/chat/?",
-      "dest": "app.py"
-    },
-    {
-      "src": "/health/?",
-      "dest": "app.py"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "app.py"
-    }
+    {"src": "/webhook/?", "dest": "app.py"},
+    {"src": "/webhook/retell/?", "dest": "app.py"},
+    {"src": "/retell/trigger/?", "dest": "app.py"},
+    {"src": "/internal/worker/?", "dest": "app.py"},
+    {"src": "/chat/?", "dest": "app.py"},
+    {"src": "/health/?", "dest": "app.py"},
+    {"src": "/(.*)", "dest": "app.py"}
   ]
 }
